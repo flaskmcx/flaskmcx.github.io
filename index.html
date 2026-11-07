@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlaskMCX - 你的专属极客启动器</title>
+    <style>
+        :root {
+            --mc-green: #3c8527;
+            --mc-green-hover: #4CAF50;
+            --ms-blue: #0078D4;
+            --bg-dark: #121212;
+            --panel-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --gradient: linear-gradient(135deg, #3c8527, #0078D4);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', 'Consolas', 'Microsoft YaHei', monospace;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 极客网格背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 顶部导航 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(60, 133, 39, 0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .download-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .download-btn:hover {
+            box-shadow: 0 0 15px rgba(60, 133, 39, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* 英雄区 (Hero Section) */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(60, 133, 39, 0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        /* 功能卡片区 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 50px 10%;
+            background: var(--bg-dark);
+        }
+
+        .card {
+            background: var(--panel-bg);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--mc-green);
+        }
+        .card:hover::before { opacity: 1; }
+
+        .card h3 {
+            color: var(--mc-green);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #555;
+            font-size: 12px;
+            border-top: 1px solid #222;
+        }
+        img {
+            width: 50%;
+            /* 删掉那一堆 display: flex */
+
+            /* 第一招：让块级元素水平居中（最经典） */
+            display: block;
+            margin: 0 auto;
+
+            /* 可选：给它加点圆角和阴影，让截图看起来更高级 */
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid rgba(60, 133, 39, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">FLASKMCX</div>
+        <button class="download-btn" onclick="window.location.href = 'flaskmcx.exe';">立即下载 v1.0.0</button>
+    </header>
+
+    <section class="hero">
+        <h1>重新定义 Minecraft 启动</h1>
+        <p>基于 Python & Flask 全栈手搓，支持微软正版验证、64个线程极限并发下载、全主题自定义。为极客而生的下一代轻量级启动器。</p>
+    </section>
+
+    <img src="show.png">
+
+    <section class="features">
+        <div class="card">
+            <h3>// 极速并发下载</h3>
+            <p>采用 64 线程多并发架构，榨干你的每一兆带宽。极速拉取 Mojang 官方资源，告别漫长等待。</p>
+        </div>
+        <div class="card">
+            <h3>// 微软正版安全认证</h3>
+            <p>深度集成微软 OAuth 2.0 设备码认证流。本地 Refresh Token 加密缓存，一次登录，长期免密畅玩。</p>
+        </div>
+        <div class="card">
+            <h3>// 动态主题引擎</h3>
+            <p>全 CSS 变量驱动，支持暗黑极客风、赛博粉紫等多种主题无缝切换，你的启动器由你定义。</p>
+        </div>
+        <div class="card">
+            <h3>// 极客精神 UI</h3>
+            <p>抛弃臃肿的界面，拥抱原汁原味的终端风。纯原生前端三剑客打造，极低内存占用，甚至能在"小霸王"上跑。</p>
+        </div>
+    </section>
+
+    <footer>
+        Powered by DarkGodJimMC © 2026. 本站与 Mojang Studios 无关。
+    </footer>
+
+</body>
+</html>
